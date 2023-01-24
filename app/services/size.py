@@ -31,7 +31,7 @@ def get_size_by_id(_id: int):
 
 
 @size.route('/', methods=GET)
-def get_ingredients():
+def get_sizes():
     ingredients, error = SizeController.get_all()
     response = ingredients if not error else {'error': error}
     status_code = 200 if ingredients else 404 if not error else 400
