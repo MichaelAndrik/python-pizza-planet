@@ -1,0 +1,28 @@
+{
+    "data":[
+        {
+            "name": "Family",
+            "price": 12
+        },
+        {
+            "name": "Big",
+            "price": 10
+        },
+        {
+            "name": "Medium 2",
+            "price": 8
+        },
+        {
+            "name": "Medium",
+            "price": 6
+        },
+        {
+            "name": "Personal",
+            "price": 4
+        },
+        {
+            "name": "Slice",
+            "price": 1.25
+        }
+    ]
+}

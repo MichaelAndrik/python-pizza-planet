@@ -50,7 +50,10 @@ class IngredientManager(BaseManager):
 
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
-        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+        serializer = cls.serializer(many=True)
+        _objects = cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+        result = serializer.dump(_objects)
+        return result
 
 
 class BeverageManager(BaseManager):
@@ -59,7 +62,10 @@ class BeverageManager(BaseManager):
 
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
-        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+        serializer = cls.serializer(many=True)
+        _objects = cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+        result = serializer.dump(_objects)
+        return result
 
 
 class OrderManager(BaseManager):
@@ -76,8 +82,8 @@ class OrderManager(BaseManager):
             (
                 OrderIngredient(
                     order_id=new_order._id,
-                    ingredient_id=ingredient._id,
-                    ingredient_price=ingredient.price
+                    ingredient_id=ingredient.get('_id'),
+                    ingredient_price=ingredient.get('price')
                 ) for ingredient in ingredients
             )
         )
@@ -85,8 +91,8 @@ class OrderManager(BaseManager):
             (
                 OrderBeverage(
                     order_id=new_order._id,
-                    beverage_id=beverage._id,
-                    beverage_price=beverage.price
+                    beverage_id=beverage.get('_id'),
+                    beverage_price=beverage.get('price')
                 ) for beverage in beverages
             )
         )
