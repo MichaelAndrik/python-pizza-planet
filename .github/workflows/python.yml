@@ -32,9 +32,8 @@ jobs:
     - name: Coverage report
       run: |
         coverage xml
-    - name: Monitor coverage
-      if: ! contains(github.event.pull_request.user.login, 'dependabot[bot]')
-      uses: slavcodev/coverage-monitor-action@v1
+    - name: Monitor Coverage
+      uses: orgoro/coverage@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        coverage_path: "coverage.xml"
+        coverageFile: coverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
