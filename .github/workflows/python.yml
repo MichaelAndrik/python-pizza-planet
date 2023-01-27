@@ -28,7 +28,7 @@ jobs:
         flake8 . --show-source --statistics
     - name: Test with pytest and coverage
       run: |
-        coverage run -m pytest -v --cov=app app/
+        coverage run -m pytest -v && coverage report -m
     - name: Coverage report
       run: |
         coverage xml
@@ -37,4 +37,4 @@ jobs:
       uses: slavcodev/coverage-monitor-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        coverage_path: "logs/clover.xml"
+        coverage_path: "coverage.xml"
