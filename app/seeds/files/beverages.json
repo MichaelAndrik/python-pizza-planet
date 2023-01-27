@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "name": "Coca cola",
+            "price": 1.5
+        },
+        {
+            "name": "Lemon Juice",
+            "price": 1
+        },
+        {
+            "name": "Pilsener",
+            "price": 3
+        },
+        {
+            "name": "Orange Juice",
+            "price": 1.25
+        },
+        {
+            "name": "Sprite",
+            "price": 1.5
+        },
+        {
+            "name": "Fanta",
+            "price": 1.5
+        }
+    ]
+}

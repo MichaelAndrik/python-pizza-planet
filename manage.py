@@ -1,14 +1,16 @@
-
-
 import pytest
 from flask.cli import FlaskGroup
 from flask_migrate import Migrate
+from flask_seeder import FlaskSeeder
 
 from app import flask_app
 from app.plugins import db
 # flake8: noqa
 from app.repositories.models import Ingredient, Beverage, Order, OrderIngredient, Size, OrderBeverage
 
+
+seeder = FlaskSeeder()
+seeder.init_app(flask_app, db)
 
 manager = FlaskGroup(flask_app)
 

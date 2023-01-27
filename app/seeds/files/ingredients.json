@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "name": "Pepper",
+            "price": 1.5
+        },
+        {
+            "name": "Salami",
+            "price": 1.25
+        },
+        {
+            "name": "Mushrooms",
+            "price": 3
+        },
+        {
+            "name": "Mozzarella",
+            "price": 1.25
+        },
+        {
+            "name": "Onion",
+            "price": 1.5
+        },
+        {
+            "name": "Tomato",
+            "price": 1.5
+        },
+        {
+            "name": "Pineapple",
+            "price": 1.5
+        },
+        {
+            "name": "Sauce",
+            "price": 1.5
+        },
+        {
+            "name": "Jam",
+            "price": 1.5
+        },
+        {
+            "name": "Olives",
+            "price": 1.5
+        }
+    ]
+}
