@@ -5,7 +5,7 @@ from app.controllers import ReportController, OrderController
 
 def test_report_get_all(app, order):
     _, error_order = OrderController.create(order)
-    report, error = ReportController.get_report()
+    report, error = ReportController.get_all()
     pytest.assume(error is None)
     pytest.assume(error_order is None)
     pytest.assume(report.get('most_popular_ingredient'))
@@ -18,5 +18,5 @@ def test_report_get_all(app, order):
 
 def test_get_report_AttributeError_when_db_is_empty(app):
     controller = ReportController()
-    _, error = controller.get_report()
+    _, error = controller.get_all()
     pytest.assume(error is not None)
