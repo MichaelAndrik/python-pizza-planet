@@ -1,7 +1,7 @@
-name: CI-1
+name: CI
 
 on:
-  pull_request:
+  push:
     branches: [ "main" ]
 
 jobs:
@@ -24,14 +24,6 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 . --show-source --statistics
-    - name: Test with pytest and coverage
+    - name: Test with pytest
       run: |
-        coverage run -m pytest -v && coverage report -m
-    - name: Coverage report
-      run: |
-        coverage xml
-    - name: Monitor Coverage
-      uses: orgoro/coverage@v3
-      with:
-        coverageFile: coverage.xml
-        token: ${{ secrets.TOKEN }}
+        python -m pytest -v
