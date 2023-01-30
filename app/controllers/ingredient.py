@@ -1,4 +1,4 @@
-from ..repositories.managers import IngredientManager
+from ..repositories.manager import IngredientManager
 from .base import BaseController
 
 

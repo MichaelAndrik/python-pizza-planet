@@ -1,8 +1,8 @@
 from sqlalchemy.exc import SQLAlchemyError
 
 from ..common.utils import check_required_keys
-from ..repositories.managers import (IngredientManager, OrderManager,
-                                     SizeManager, BeverageManager)
+from ..repositories.manager import (IngredientManager, OrderManager,
+                                    SizeManager, BeverageManager)
 from .base import BaseController
 
 

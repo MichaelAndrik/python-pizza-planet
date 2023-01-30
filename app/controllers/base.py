@@ -2,7 +2,7 @@ from typing import Any, Optional, Tuple
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow.exceptions import ValidationError
 
-from ..repositories.managers import BaseManager
+from ..repositories.manager import BaseManager
 
 
 class BaseController:
