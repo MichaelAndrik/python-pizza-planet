@@ -1,6 +1,6 @@
 from sqlalchemy.exc import SQLAlchemyError
 
-from ..repositories.managers import ReportManager
+from ..repositories.manager import ReportManager
 
 
 class ReportController():

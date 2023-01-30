@@ -1,7 +1,7 @@
 from typing import Tuple
 from sqlalchemy.exc import SQLAlchemyError
 
-from ..repositories.managers import IndexManager
+from ..repositories.manager import IndexManager
 
 
 class IndexController:

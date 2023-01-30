@@ -1,4 +1,4 @@
-from ..repositories.managers import BeverageManager
+from ..repositories.manager import BeverageManager
 from .base import BaseController
 
 
