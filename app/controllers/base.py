@@ -1,5 +1,7 @@
 from typing import Any, Optional, Tuple
 from sqlalchemy.exc import SQLAlchemyError
+from marshmallow.exceptions import ValidationError
+
 from ..repositories.managers import BaseManager
 
 
@@ -24,7 +26,7 @@ class BaseController:
     def create(cls, entry: dict) -> Tuple[Any, Optional[str]]:
         try:
             return cls.manager.create(entry), None
-        except (SQLAlchemyError, RuntimeError) as ex:
+        except (SQLAlchemyError, RuntimeError, ValidationError) as ex:
             return None, str(ex)
 
     @classmethod

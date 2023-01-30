@@ -108,24 +108,21 @@ class OrderManager(BaseManager):
 
     @classmethod
     def get_most_request_size(cls) -> list:
-        most_requested_size = {}
         item = cls.session.query(Size.name, func.count(cls.model.size_id).label('times')).\
             join(cls.model).\
             group_by(Size.name).\
             order_by(desc('times')).\
             first()
 
-        if item is not None:
-            most_requested_size = {
-                "size": item.name,
-                "times": item.times
-            }
+        most_requested_size = {
+            "size": item.name,
+            "times": item.times
+        }
 
         return most_requested_size
 
     @classmethod
     def get_month_with_more_revenue(cls) -> list:
-        month_with_more_revenue = {}
         order = cls.session.query(
             func.strftime('%m', cls.model.date).label('month'),
             func.sum(cls.model.total_price).label('total_revenue')
@@ -134,11 +131,10 @@ class OrderManager(BaseManager):
             order_by(desc('total_revenue')).\
             first()
 
-        if order is not None:
-            month_with_more_revenue = {
-                "month": calendar.month_name[int(order.month)],
-                "total_sales": order.total_revenue
-            }
+        month_with_more_revenue = {
+            "month": calendar.month_name[int(order.month)],
+            "total_sales": order.total_revenue
+        }
 
         return month_with_more_revenue
 
@@ -196,7 +192,6 @@ class OrderIngredientManager(BaseManager):
 
     @classmethod
     def get_most_request_ingredient(cls) -> list:
-        most_requested_ingredient = {}
         item = cls.session.query(
             Ingredient.name,
             func.count(cls.model.ingredient_id).label('times')
@@ -206,11 +201,10 @@ class OrderIngredientManager(BaseManager):
             order_by(desc('times')).\
             first()
 
-        if item is not None:
-            most_requested_ingredient = {
-                "ingredient": item.name,
-                "times": item.times,
-            }
+        most_requested_ingredient = {
+            "ingredient": item.name,
+            "times": item.times,
+        }
 
         return most_requested_ingredient
 
@@ -221,7 +215,6 @@ class OrderBeverageManager(BaseManager):
 
     @classmethod
     def get_most_request_beverage(cls) -> list:
-        most_requested_beverage = {}
         item = cls.session.query(
             Beverage.name,
             func.count(cls.model.beverage_id).label('times')
@@ -231,11 +224,10 @@ class OrderBeverageManager(BaseManager):
             order_by(desc('times')).\
             first()
 
-        if item is not None:
-            most_requested_beverage = {
-                "beverage": item.name,
-                "times": item.times
-            }
+        most_requested_beverage = {
+            "beverage": item.name,
+            "times": item.times
+        }
 
         return most_requested_beverage
 

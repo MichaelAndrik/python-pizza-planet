@@ -2,7 +2,7 @@ import pytest
 from app.controllers import BeverageController
 
 
-def test_create(app, beverage: dict):
+def test_create_beverage(app, beverage: dict):
     created_beverage, error = BeverageController.create(beverage)
     pytest.assume(error is None)
     for param, value in beverage.items():
@@ -11,7 +11,13 @@ def test_create(app, beverage: dict):
         pytest.assume(created_beverage['_id'])
 
 
-def test_update(app, beverage: dict):
+def test_create_beverage_validation_error_when_send_an_empty_dict(app):
+    beverage = {}
+    _, error = BeverageController.create(beverage)
+    pytest.assume(error is not None)
+
+
+def test_update_beverage(app, beverage: dict):
     created_beverage, _ = BeverageController.create(beverage)
     updated_fields = {
         'name': 'updated',
@@ -29,7 +35,18 @@ def test_update(app, beverage: dict):
         pytest.assume(beverage_from_database[param] == value)
 
 
-def test_get_by_id(app, beverage: dict):
+def test_update_beverage_id_validation(app):
+    _, error = BeverageController.update({})
+    pytest.assume(error is not None)
+    pytest.assume(error == 'Error: No id was provided for update')
+
+
+def test_update_beverage_error_when_id_not_found(app):
+    _, error = BeverageController.update({"_id": 1000})
+    pytest.assume(error is not None)
+
+
+def test_beverage_get_by_id(app, beverage: dict):
     created_beverage, _ = BeverageController.create(beverage)
     beverage_from_db, error = BeverageController.get_by_id(created_beverage['_id'])
     pytest.assume(error is None)
@@ -37,7 +54,7 @@ def test_get_by_id(app, beverage: dict):
         pytest.assume(beverage_from_db[param] == value)
 
 
-def test_get_all(app, beverages: list):
+def test_beverage_get_all(app, beverages: list):
     created_beverages = []
     for beverage in beverages:
         created_beverage, _ = BeverageController.create(beverage)

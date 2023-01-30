@@ -15,7 +15,7 @@ def client_data_mock() -> dict:
 
 @pytest.fixture
 def order_uri():
-    return '/order'
+    return '/order/'
 
 
 @pytest.fixture
@@ -34,6 +34,12 @@ def order(create_ingredients, create_size, client_data, create_beverages) -> dic
         'beverages': beverages,
         'size_id': size_id
     }
+
+
+@pytest.fixture
+def create_order(client, order_uri, order) -> dict:
+    new_order = client.post(order_uri, json=order)
+    return new_order
 
 
 @pytest.fixture

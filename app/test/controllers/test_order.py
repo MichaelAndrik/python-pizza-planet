@@ -33,7 +33,7 @@ def __create_order_values(ingredients: list, sizes: list, beverages: list):
         created_ingredients, created_beverages
 
 
-def test_create(app, ingredients, size, client_data, beverages):
+def test_create_order(app, ingredients, size, client_data, beverages):
     created_size, created_ingredients, created_beverages = __create_order_values(
         ingredients,
         [size],
@@ -62,6 +62,13 @@ def test_create(app, ingredients, size, client_data, beverages):
         pytest.assume(not beverages_in_detail.difference(beverage_ids))
 
 
+def test_create_order_validation_error_when_send_an_empty_dict(app):
+    order = {}
+    response, error = OrderController.create(order)
+    pytest.assume(error is None)
+    pytest.assume(response == 'Invalid order payload')
+
+
 def test_calculate_order_price(app, ingredients, size, client_data, beverages):
     created_size, created_ingredients, created_beverages = __create_order_values(
         ingredients,
@@ -78,7 +85,7 @@ def test_calculate_order_price(app, ingredients, size, client_data, beverages):
     ))
 
 
-def test_get_by_id(app, ingredients, size, client_data, beverages):
+def test_order_get_by_id(app, ingredients, size, client_data, beverages):
     created_size, created_ingredients, created_beverages = __create_order_values(
         ingredients,
         [size],
@@ -106,7 +113,7 @@ def test_get_by_id(app, ingredients, size, client_data, beverages):
         pytest.assume(not beverages_in_detail.difference(beverage_ids))
 
 
-def test_get_all(app, ingredients, sizes, client_data, beverages):
+def test_order_get_all(app, ingredients, sizes, client_data, beverages):
     created_sizes, created_ingredients, created_beverages = __create_order_values(
         ingredients,
         sizes,

@@ -10,5 +10,5 @@ class ReportController():
     def get_report(cls):
         try:
             return cls.manager.get_all_report(), None
-        except (SQLAlchemyError, RuntimeError) as ex:
+        except (SQLAlchemyError, RuntimeError, AttributeError) as ex:
             return None, str(ex)

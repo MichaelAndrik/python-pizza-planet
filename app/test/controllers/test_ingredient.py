@@ -2,7 +2,7 @@ import pytest
 from app.controllers import IngredientController
 
 
-def test_create(app, ingredient: dict):
+def test_create_ingredient(app, ingredient: dict):
     created_ingredient, error = IngredientController.create(ingredient)
     pytest.assume(error is None)
     for param, value in ingredient.items():
@@ -11,7 +11,13 @@ def test_create(app, ingredient: dict):
         pytest.assume(created_ingredient['_id'])
 
 
-def test_update(app, ingredient: dict):
+def test_create_ingredient_validation_error_when_send_an_empty_dict(app):
+    ingredient = {}
+    _, error = IngredientController.create(ingredient)
+    pytest.assume(error is not None)
+
+
+def test_update_ingredient(app, ingredient: dict):
     created_ingredient, _ = IngredientController.create(ingredient)
     updated_fields = {
         'name': 'updated',
@@ -29,7 +35,18 @@ def test_update(app, ingredient: dict):
         pytest.assume(ingredient_from_database[param] == value)
 
 
-def test_get_by_id(app, ingredient: dict):
+def test_update_ingredient_id_validation(app):
+    _, error = IngredientController.update({})
+    pytest.assume(error is not None)
+    pytest.assume(error == 'Error: No id was provided for update')
+
+
+def test_update_ingredient_error_when_id_not_found(app):
+    _, error = IngredientController.update({"_id": 1000})
+    pytest.assume(error is not None)
+
+
+def test_ingredient_get_by_id(app, ingredient: dict):
     created_ingredient, _ = IngredientController.create(ingredient)
     ingredient_from_db, error = IngredientController.get_by_id(created_ingredient['_id'])
     pytest.assume(error is None)
@@ -37,7 +54,7 @@ def test_get_by_id(app, ingredient: dict):
         pytest.assume(ingredient_from_db[param] == value)
 
 
-def test_get_all(app, ingredients: list):
+def test_ingredient_get_all(app, ingredients: list):
     created_ingredients = []
     for ingredient in ingredients:
         created_ingredient, _ = IngredientController.create(ingredient)
