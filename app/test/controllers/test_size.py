@@ -2,7 +2,7 @@ import pytest
 from app.controllers import SizeController
 
 
-def test_create(app, size: dict):
+def test_create_size(app, size: dict):
     created_size, error = SizeController.create(size)
     pytest.assume(error is None)
     for param, value in size.items():
@@ -11,7 +11,13 @@ def test_create(app, size: dict):
         pytest.assume(created_size['_id'])
 
 
-def test_update(app, size: dict):
+def test_create_size_validation_error_when_send_an_empty_dict(app):
+    size = {}
+    _, error = SizeController.create(size)
+    pytest.assume(error is not None)
+
+
+def test_update_size(app, size: dict):
     created_size, _ = SizeController.create(size)
     updated_fields = {
         'name': 'updated',
@@ -26,7 +32,18 @@ def test_update(app, size: dict):
         pytest.assume(updated_size[param] == value)
 
 
-def test_get_by_id(app, size: dict):
+def test_update_size_id_validation(app):
+    _, error = SizeController.update({})
+    pytest.assume(error is not None)
+    pytest.assume(error == 'Error: No id was provided for update')
+
+
+def test_update_size_error_when_id_not_found(app):
+    _, error = SizeController.update({"_id": 1000})
+    pytest.assume(error is not None)
+
+
+def test_size_get_by_id(app, size: dict):
     created_size, _ = SizeController.create(size)
     size_from_db, error = SizeController.get_by_id(created_size['_id'])
     pytest.assume(error is None)
@@ -34,7 +51,7 @@ def test_get_by_id(app, size: dict):
         pytest.assume(size_from_db[param] == value)
 
 
-def test_get_all(app, sizes: list):
+def test_size_get_all(app, sizes: list):
     created_sizes = []
     for size in sizes:
         created_size, _ = SizeController.create(size)
